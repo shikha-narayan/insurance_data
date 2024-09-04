@@ -60,17 +60,3 @@ column_details = {
     'Response': 'Indicates whether the customer has responded positively to a product or service. Values: 0 = No, 1 = Yes.'
 }
 st.table(pd.DataFrame(list(column_details.items()), columns=['Column', 'Description']))
-
-# Gender distribution bar chart using Streamlit
-st.header('Gender Distribution')
-gender_counts = data['Gender'].value_counts()
-st.bar_chart(gender_counts)
-
-# Additional visual: Vehicle Age Distribution
-st.header('Vehicle Age Distribution')
-vehicle_age_counts = data['Vehicle_Age'].value_counts()
-st.bar_chart(vehicle_age_counts)
-
-# Additional visual: Annual Premium Distribution
-st.header('Annual Premium Distribution')
-st.hist(data['Annual_Premium'], bins=30)
