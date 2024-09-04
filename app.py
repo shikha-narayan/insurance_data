@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Set the maximum number of cells to be rendered by Pandas Styler
@@ -63,22 +62,22 @@ column_details = {
 }
 st.table(pd.DataFrame(list(column_details.items()), columns=['Column', 'Description']))
 
-# Gender distribution pie chart
+# Gender distribution bar chart using seaborn
 st.header('Gender Distribution')
 gender_counts = data['Gender'].value_counts()
-fig1, ax1 = plt.subplots()
-ax1.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=90)
-ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+fig1 = sns.catplot(x=gender_counts.index, y=gender_counts.values, kind='bar', palette='pastel')
+fig1.set_axis_labels("Gender", "Count")
 st.pyplot(fig1)
 
 # Additional visual: Vehicle Age Distribution
 st.header('Vehicle Age Distribution')
-fig2, ax2 = plt.subplots()
-sns.countplot(data=data, x='Vehicle_Age', palette='pastel', ax=ax2)
+fig2 = sns.catplot(data=data, x='Vehicle_Age', kind='count', palette='pastel')
+fig2.set_axis_labels("Vehicle Age", "Count")
 st.pyplot(fig2)
 
 # Additional visual: Annual Premium Distribution
 st.header('Annual Premium Distribution')
-fig3, ax3 = plt.subplots()
-sns.histplot(data['Annual_Premium'], bins=30, kde=True, color='skyblue', ax=ax3)
-st.pyplot(fig3)
+fig3 = sns.histplot(data['Annual_Premium'], bins=30, kde=True, color='skyblue')
+fig3.set_xlabel("Annual Premium")
+fig3.set_ylabel("Frequency")
+st.pyplot(fig3.figure)
