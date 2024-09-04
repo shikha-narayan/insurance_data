@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import seaborn as sns
 
 # Set the maximum number of cells to be rendered by Pandas Styler
 pd.set_option("styler.render.max_elements", 12582900)
@@ -62,22 +61,16 @@ column_details = {
 }
 st.table(pd.DataFrame(list(column_details.items()), columns=['Column', 'Description']))
 
-# Gender distribution bar chart using seaborn
+# Gender distribution bar chart using Streamlit
 st.header('Gender Distribution')
 gender_counts = data['Gender'].value_counts()
-fig1 = sns.catplot(x=gender_counts.index, y=gender_counts.values, kind='bar', palette='pastel')
-fig1.set_axis_labels("Gender", "Count")
-st.pyplot(fig1)
+st.bar_chart(gender_counts)
 
 # Additional visual: Vehicle Age Distribution
 st.header('Vehicle Age Distribution')
-fig2 = sns.catplot(data=data, x='Vehicle_Age', kind='count', palette='pastel')
-fig2.set_axis_labels("Vehicle Age", "Count")
-st.pyplot(fig2)
+vehicle_age_counts = data['Vehicle_Age'].value_counts()
+st.bar_chart(vehicle_age_counts)
 
 # Additional visual: Annual Premium Distribution
 st.header('Annual Premium Distribution')
-fig3 = sns.histplot(data['Annual_Premium'], bins=30, kde=True, color='skyblue')
-fig3.set_xlabel("Annual Premium")
-fig3.set_ylabel("Frequency")
-st.pyplot(fig3.figure)
+st.hist(data['Annual_Premium'], bins=30)
